@@ -26,7 +26,7 @@ namespace PracticaExamenListasED.Clases
 
 		public int Longitud()
 		{
-			int contador = 1;
+			int contador = 0;
 			if (ListaVacia())
 				return contador;
 			else
@@ -81,48 +81,69 @@ namespace PracticaExamenListasED.Clases
 
 		public void InsertarMedioLista(Persona personaAgregada)
 		{
-			if (ListaVacia())
+			int longitud = Longitud();
+			int medio = 0;
+			medio = longitud / 2;
+			int contador = 0;
+			Nodo actual = primero;
+			Nodo anterior = null;
+			while (actual != null)
 			{
-				Console.WriteLine("lista vacia");
-				primero = ultimo = new Nodo(personaAgregada);
-				Console.WriteLine("persona agregada a la lista");
-			}
-			else
-			{
-				int longitud = Longitud();
-				Nodo actual = primero;
-				int iterador = -1;
-				Nodo anterior = null;
-				while (actual.Siguiente !=null && iterador < longitud)
+				if (contador == medio)
 				{
-					iterador++;
-					actual = actual.Siguiente;
+					actual.Siguiente = new Nodo(personaAgregada);
+					new Nodo(personaAgregada).Siguiente = actual;
+
 				}
 				anterior = actual;
-				Nodo nuevaPersona = new Nodo(personaAgregada, actual.Siguiente);
-				anterior.Siguiente = nuevaPersona;
+				actual = actual.Siguiente;
+				contador++;
+
+				//if (ListaVacia())
+				//{
+				//	Console.WriteLine("lista vacia");
+				//	primero = ultimo = new Nodo(personaAgregada);
+				//	Console.WriteLine("persona agregada a la lista");
+				//}
+				//else
+				//{
+				//	int longitud = Longitud();
+				//	Nodo actual = primero;
+				//	int iterador = -1;
+				//	Nodo anterior = null;
+				//	while (actual.Siguiente !=null && iterador < longitud)
+				//	{
+				//		iterador++;
+				//		actual = actual.Siguiente;
+				//	}
+				//	anterior = actual;
+				//	Nodo nuevaPersona = new Nodo(personaAgregada, actual.Siguiente);
+				//	anterior.Siguiente = nuevaPersona;
+				//}
 			}
 		}
 
-		public object EliminarDelFrente()
-		{
-			if (ListaVacia())
+			public object EliminarDelFrente()
 			{
-				object eliminarElemento = primero.Persona; // recupera los datos
-
-				// restablece las referencias primerNodo y ultimoNodo
-				if (primero == ultimo)
-					primero = ultimo = null;
-				else
+				if (ListaVacia())
 				{
-					primero = primero.Siguiente;
+					object eliminarElemento = primero.Persona; // recupera los datos
+
+					// restablece las referencias primerNodo y ultimoNodo
+					if (primero == ultimo)
+						primero = ultimo = null;
+					else
+					{
+						primero = primero.Siguiente;
+					}
+
+					return eliminarElemento; // devuelve los datos eliminados
 				}
 
-				return eliminarElemento; // devuelve los datos eliminados
+				return null; // Return null or handle differently if the list is empty
 			}
 
-			return null; // Return null or handle differently if the list is empty
-		}
+
 
 		public void BuscarElemento(Persona personaBuacar)
 		{
@@ -153,11 +174,9 @@ namespace PracticaExamenListasED.Clases
 				{
 					Console.WriteLine("la persona NO encuentra en la lista");
 				}
+
 			}
 		}
-		public void OrdenarLista()
-		{
-			
-		}
+		
 	}
 }
